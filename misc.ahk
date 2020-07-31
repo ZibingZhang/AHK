@@ -1,6 +1,6 @@
 ﻿; Allow normal CapsLock functionality to be toggled by Alt+CapsLock:
 !CapsLock::
-    GetKeyState, capsstate, CapsLock, T ;(T indicates a Toggle. capsstate is an arbitrary varible name)
+    GetKeyState, capsstate, CapsLock, T ; (T indicates a Toggle. capsstate is an arbitrary varible name)
     if capsstate = U
         SetCapsLockState, AlwaysOn
     else
@@ -25,25 +25,3 @@ uriEncode(str) {
 
 !Up::Send {Volume_Up 2}
 !Down::Send {Volume_Down 2}
-
-; https://autohotkey.com/board/topic/10412-paste-plain-text-and-copycut/?p=65585
-; ^#v::                            ; Text–only paste from ClipBoard
-;    Clip0 = %ClipBoardAll%
-;    ClipBoard = %ClipBoard%       ; Convert to text
-;    Send ^v                       ; For best compatibility: SendPlay
-;    Sleep 50                      ; Don't change clipboard while it is pasted! (Sleep > 0)
-;    ClipBoard = %Clip0%           ; Restore original ClipBoard
-;    VarSetCapacity(Clip0, 0)      ; Free memory
-; Return
-; ^#c::                            ; Text-only cut/copy to ClipBoard
-;    Clip0 = %ClipBoardAll%
-;    ClipBoard =
-;    StringRight x,A_ThisHotKey,1  ; C or X
-;    Send ^%x%                     ; For best compatibility: SendPlay
-;    ClipWait 2                    ; Wait for text, up to 2s
-;    If ErrorLevel
-;       ClipBoard = %Clip0%        ; Restore original ClipBoard
-;    Else
-;       ClipBoard = %ClipBoard%    ; Convert to text
-;    VarSetCapacity(Clip0, 0)      ; Free memory 
-; Return

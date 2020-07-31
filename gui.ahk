@@ -1,11 +1,4 @@
-﻿; Created by Asger Juul Brunshøj
-
-; Note: Save with encoding UTF-8 with BOM if possible.
-; I had issues with special characters like in ¯\_(ツ)_/¯ that wouldn't work otherwise.
-; Notepad will save UTF-8 files with BOM automatically (even though it does not say so).
-; Some editors however save without BOM, and then special characters look messed up in the AHK GUI.
-
-;-------------------------------------------------------------------------------
+﻿;-------------------------------------------------------------------------------
 ; AUTO EXECUTE
 ;-------------------------------------------------------------------------------
 gui_autoexecute:
@@ -36,6 +29,8 @@ gui_autoexecute:
 ;-------------------------------------------------------------------------------
 ; GUI HELPERS
 ;-------------------------------------------------------------------------------
+; Vertically centers the text within the textfield
+; https://www.autohotkey.com/boards/viewtopic.php?t=4673
 Edit_VCENTER(HEDIT) { ; The Edit control must have the ES_MULTILINE style (0x0004 \ +Multi)!
     ; EM_GETRECT := 0x00B2 <- msdn.microsoft.com/en-us/library/bb761596(v=vs.85).aspx
     ; EM_SETRECT := 0x00B3 <- msdn.microsoft.com/en-us/library/bb761657(v=vs.85).aspx

@@ -1,47 +1,15 @@
-﻿; Created by Asger Juul BRunshøj
-
-; Note: Save with encoding UTF-8 with BOM if possible.
-; I had issues with special characters like in ¯\_(ツ)_/¯ that wouldn't work otherwise.
-; Notepad will save UTF-8 files with BOM automatically (even though it does not say so).
-; Some editors however save without BOM, and then special characters look messed up in the AHK GUI.
-
-; Write your own AHK commands in this file to be recognized by the GUI. Take inspiration from the samples provided here.
-
+﻿;-------------------------------------------------------------------------------
+;;; SEARCH WEBSITES ;;;
 ;-------------------------------------------------------------------------------
-;;; SEARCH GOOGLE ;;;
-;-------------------------------------------------------------------------------
-if Command = g%A_Space% ; Search Google
-{
-    gui_search_title = Google
-    gui_search(cYellow, "https://www.google.com/search?num=50&safe=off&site=&source=hp&q=REPLACEME&btnG=Search&oq=&gs_l=")
-}
-; else if Pedersen = m%A_Space% ; Open more than one URL
-; {
-;     gui_search_title = multiple
-;     gui_search("https://www.google.com/search?&q=REPLACEME")
-;     gui_search("https://www.bing.com/search?q=REPLACEME")
-;     gui_search("https://duckduckgo.com/?q=REPLACEME")
-; }
-; else if Command = x%A_Space% ; Search Google as Incognito
-;   A note on how this works:
-;   The function name "gui_search()" is poorly chosen.
-;   What you actually specify as the parameter value is a command to Run. It does not have to be a URL.
-;   Before the command is Run, the word REPLACEME is replaced by your input.
-;   It does not have to be a search url, that was just the application I had in mind when I originally wrote it.
-;   So what this does is that it Runs chrome with the arguments "-incognito" and the google search URL where REPLACEME in the URL has been replaced by your input.
-; {
-;     gui_search_title = Google Search as Incognito
-;     gui_search("C:\Program Files\Mozilla Firefox\firefox.exe -incognito https://www.google.com/search?safe=off&q=REPLACEME")
-; }
-
-
-;-------------------------------------------------------------------------------
-;;; SEARCH OTHER THINGS ;;;
-;-------------------------------------------------------------------------------
-else if Command = fb%A_Space% ; Search Facebook
+if Command = fb%A_Space% ; Search Facebook
 {
     gui_search_title = Search Facebook
     gui_search(cBlue, "https://www.facebook.com/search/results.php?q=REPLACEME")
+}
+else if Command = g%A_Space% ; Search Google
+{
+    gui_search_title = Google
+    gui_search(cYellow, "https://www.google.com/search?num=50&safe=off&site=&source=hp&q=REPLACEME&btnG=Search&oq=&gs_l=")
 }
 else if Command = yt%A_Space% ; Search Youtube
 {
@@ -51,32 +19,62 @@ else if Command = yt%A_Space% ; Search Youtube
 
 
 ;-------------------------------------------------------------------------------
-;;; LAUNCH WEBSITES AND PROGRAMS ;;;
+;;; LAUNCH WEBSITES ;;;
 ;-------------------------------------------------------------------------------
-else if Command = r/ ; Go to subreddit
-{
-    gui_search_title := "Subreddit"
-    gui_search(cBlue, "https://www.reddit.com/r/REPLACEME")
-}
-else if Command = face ; facebook.com
-{
-    gui_destroy()
-    Run www.facebook.com
-}
-else if Command = red ; reddit.com
-{
-    gui_destroy()
-    Run www.reddit.com
-}
 else if Command = cal ; Google Calendar
 {
     gui_destroy()
     Run https://www.google.com/calendar
 }
-else if Command = vs ; VS Code
+else if Command = face ; Facebook
 {
     gui_destroy()
-    Run "C:\Users\Zibing\AppData\Local\Programs\Microsoft VS Code\Code.exe"
+    Run www.facebook.com
+}
+else if Command = mail ; Gmail
+{
+    gui_destroy()
+    Run https://mail.google.com/mail/u/0/#inbox
+}
+else if Command = maps ; Google Maps focused on Boston
+{
+    gui_destroy()
+    Run https://www.google.com/maps/@42.3140089`,-71.2504676`,12z
+}
+else if Command = mes ; Facebook Messenger
+{
+    gui_destroy()
+    Run https://www.facebook.com/messages?action=recent-messages
+}
+else if Command = r/ ; Go to subreddit
+{
+    gui_search_title := "Subreddit"
+    gui_search(cOrange, "https://www.reddit.com/r/REPLACEME")
+}
+else if Command = red ; Reddit
+{
+    gui_destroy()
+    Run www.reddit.com
+}
+else if Command = url ; Open URL from the clipboard
+{
+    gui_destroy()
+    Run %ClipBoard%
+}
+
+
+;-------------------------------------------------------------------------------
+;;; LAUNCH PROGRAMS ;;;
+;-------------------------------------------------------------------------------
+else if Command = cmd ; Command Prompt
+{
+    gui_destroy()
+    Run cmd.exe
+}
+else if Command = drr ; DrRacket
+{
+    gui_destroy()
+    Run C:\Program Files\Racket\DrRacket.exe
 }
 else if Command = note ; Notepad
 {
@@ -86,88 +84,87 @@ else if Command = note ; Notepad
 else if Command = paint ; MS Paint
 {
     gui_destroy()
-    Run "C:\Windows\system32\mspaint.exe"
+    Run C:\Windows\system32\mspaint.exe
 }
-else if Command = maps ; Google Maps focused on Boston
+else if Command = power ; Powershell
 {
     gui_destroy()
-    Run "https://www.google.com/maps/@42.3140089`,-71.2504676`,12z"
+    Run powershell.exe
 }
-else if Command = inbox ; Open google inbox
+else if Command = pyc ; PyCharm
 {
     gui_destroy()
-    Run https://inbox.google.com/u/0/
-    ; Run https://mail.google.com/mail/u/0/#inbox  ; Maybe you prefer the old gmail
+    Run C:\Program Files\JetBrains\PyCharm Community Edition 2020.1.4\bin\pycharm64.exe
 }
-else if Command = mes ; Opens Facebook unread messages
+else if Command = rack ; Racket
 {
     gui_destroy()
-    Run https://www.facebook.com/messages?action=recent-messages
+    Run C:\Program Files\Racket\Racket.exe
 }
-else if Command = url ; Open an URL from the clipboard
+else if Command = spot ; Spotify
 {
     gui_destroy()
-    Run %ClipBoard%
+    WinGet, PID, PID, Spotify
+    if (%PID% = "")
+    { 
+        Run Spotify 
+    }
+    WinActivate, ahk_pid %PID%
+}
+else if Command = vs ; VS Code
+{
+    gui_destroy()
+    Run "C:\Users\Zibing\AppData\Local\Programs\Microsoft VS Code\Code.exe"
 }
 
 
 ;-------------------------------------------------------------------------------
 ;;; INTERACT WITH THIS AHK SCRIPT ;;;
 ;-------------------------------------------------------------------------------
-else if Command = rel ; Reload this script
+else if Command = cmds ; Edit GUI user commands
 {
-    gui_destroy() ; removes the GUI even when the reload fails
-    Reload
+    gui_destroy()
+    Run, notepad.exe "%A_ScriptDir%\commands.ahk"
 }
 else if Command = dir ; Open the directory for this script
 {
     gui_destroy()
     Run, %A_ScriptDir%
 }
-else if Command = host ; Edit host script
+else if Command = rel ; Reload this script
 {
-    gui_destroy()
-    Run, notepad.exe "%A_ScriptFullPath%"
-}
-else if Command = user ; Edit GUI user commands
-{
-    gui_destroy()
-    Run, notepad.exe "%A_ScriptDir%\gui.ahk"
+    gui_destroy() ; removes the GUI even when the reload fails
+    Reload
 }
 
 
 ;-------------------------------------------------------------------------------
 ;;; TYPE RAW TEXT ;;;
 ;-------------------------------------------------------------------------------
-else if Command = @ ; Email address
+else if Command = @ ; My Email Address
 {
     gui_destroy()
-    Send, my_email_address@gmail.com
+    Send, zibing.zha@gmail.com
 }
-else if Command = name ; My name
+else if Command = clip ; Paste w/o Formatting
 {
     gui_destroy()
-    Send, Zibing Zhang
+    SendRaw, %ClipBoard%
 }
-else if Command = phone ; My phone number
-{
-    gui_destroy()
-    SendRaw, +1 (781) 366-7775
-}
-else if Command = int ; LaTeX integral
+else if Command = int ; LaTeX Integral
 {
     gui_destroy()
     SendRaw, \int_0^1  \; \mathrm{d}x\,
 }
-else if Command = logo ; ¯\_(ツ)_/¯
+else if Command = name ; My Name
 {
     gui_destroy()
-    Send ¯\_(ツ)_/¯
+    Send, Zibing Zhang
 }
-else if Command = clip ; Paste clipboard content without formatting
+else if Command = phone ; My Mobile Number
 {
     gui_destroy()
-    SendRaw, %ClipBoard%
+    SendRaw, +1 (781) 366-7775
 }
 
 
@@ -179,11 +176,11 @@ else if Command = down ; Downloads
     gui_destroy()
     Run C:\Users\%A_Username%\Downloads
 }
-; else if Command = drop ; Dropbox folder (works when it is in the default directory)
-; {
-;     gui_destroy()
-;     Run, C:\Users\%A_Username%\Dropbox\
-; }
+else if Command = pers ; Personal Dir
+{
+    gui_destroy()
+    Run C:\Users\%A_Username%\Personal
+}
 else if Command = rec ; Recycle Bin
 {
     gui_destroy()
@@ -194,36 +191,25 @@ else if Command = rec ; Recycle Bin
 ;-------------------------------------------------------------------------------
 ;;; MISCELLANEOUS ;;;
 ;-------------------------------------------------------------------------------
-else if Command = ping ; Ping Google
+else if Command = ? ; List of Commands
 {
-    gui_destroy()
-    Run, cmd /K "ping www.google.com"
+    GuiControl,, Command, ; Clear the input box
+    Gosub, gui_commandlibrary
 }
-else if Command = hosts ; Open hosts file in Notepad
-{
-    gui_destroy()
-    Run notepad.exe C:\Windows\System32\drivers\etc\hosts
-}
-else if Command = date ; What is the date?
+else if Command = date ; Displays the Date
 {
     gui_destroy()
     FormatTime, date,, LongDate
     MsgBox %date%
     date =
 }
-else if Command = week ; Which week is it?
+else if Command = hosts ; Open hosts file in Notepad
 {
     gui_destroy()
-    FormatTime, weeknumber,, YWeek
-    StringTrimLeft, weeknumbertrimmed, weeknumber, 4
-    if (weeknumbertrimmed = 53)
-        weeknumbertrimmed := 1
-    MsgBox It is currently week %weeknumbertrimmed%
-    weeknumber =
-    weeknumbertrimmed =
+    Run notepad.exe C:\Windows\System32\drivers\etc\hosts
 }
-else if Command = ? ; Tooltip with list of commands
+else if Command = ping ; Ping Google
 {
-    GuiControl,, Command, ; Clear the input box
-    Gosub, gui_commandlibrary
+    gui_destroy()
+    Run, cmd /K "ping www.google.com"
 }
