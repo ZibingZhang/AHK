@@ -1,6 +1,6 @@
-﻿; Allow normal CapsLock functionality to be toggled by Alt+CapsLock:
+﻿; Allow normal CapsLock functionality to be toggled by Alt + CapsLock
 !CapsLock::
-    GetKeyState, capsstate, CapsLock, T ; (T indicates a Toggle. capsstate is an arbitrary varible name)
+    GetKeyState, capsstate, CapsLock, T ; (T indicates a toggle, capsstate is an arbitrary varible name)
     if capsstate = U
         SetCapsLockState, AlwaysOn
     else
@@ -8,7 +8,7 @@
     return
 
 
-; A function to escape characters like & for use in URLs.
+; Escapes characters (such as &) for use in URLs
 uriEncode(str) {
     f = %A_FormatInteger%
     SetFormat, Integer, Hex
@@ -23,5 +23,6 @@ uriEncode(str) {
     Return, pr . str
 }
 
+; Volume control with Alt + Up or Alt + Down to increase or decrease volume
 !Up::Send {Volume_Up 2}
 !Down::Send {Volume_Down 2}

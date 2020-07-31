@@ -22,6 +22,9 @@ gui_autoexecute:
     ; Initialize variable to keep track of the state of the GUI
     gui_state = closed
 
+    ; Initialize variable to keep track of the state of the tooltip
+    tooltip_state = closed
+
     ; Initialize search_urls as a variable set to zero
     search_urls := 0
     return
@@ -101,15 +104,17 @@ Findus:
 #WinActivateForce
 gui_destroy() {
     global gui_state
+    global tooltip_state
     global gui_search_title
 
     gui_state = closed
+    tooltip_state = closed
     ; Forget search title variable so the next search does not re-use it
     ; in case the next search does not set its own:
     gui_search_title =
 
     ; Clear the tooltip
-    Gosub, gui_tooltip_clear
+    Gosub gui_tooltip_clear
 
     ; Hide GUI
     Gui, Destroy

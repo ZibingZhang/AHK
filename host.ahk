@@ -4,9 +4,8 @@ SendMode Input  ; Recommended for new scripts due to its superior speed and reli
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #SingleInstance Force
 
+; Remove functionality from CapsLock key
 SetCapsLockState, AlwaysOff
-
-; #InstallKeybdHook
 
 ;-------------------------------------------------------
 ; AUTO EXECUTE SECTION FOR INCLUDED SCRIPTS
@@ -14,7 +13,7 @@ SetCapsLockState, AlwaysOff
 ; section in a function or subroutine which is then
 ; executed below.
 ;-------------------------------------------------------
-Gosub, gui_autoexecute
+Gosub gui_autoexecute
 ;-------------------------------------------------------
 ; END AUTO EXECUTE SECTION
 return
