@@ -26,3 +26,27 @@ uriEncode(str) {
 ; Volume control with Alt + Up or Alt + Down to increase or decrease volume
 !Up::Send {Volume_Up 2}
 !Down::Send {Volume_Down 2}
+
+; workman keyboard layout
+*w::d
+*e::r
+*r::w
+*t::b
+*y::j
+*u::f
+*i::u
+*o::p
+*p::;
+*+p:::
+*d::h
+*f::t
+*h::y
+*j::n
+*k::e
+*l::o
+*;::i
+*c::m
+*v::c
+*b::v
+*n::k
+*m::l
